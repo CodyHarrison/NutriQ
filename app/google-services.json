@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "64800051448",
+    "firebase_url": "https://nutriq-e6405.firebaseio.com",
+    "project_id": "nutriq-e6405",
+    "storage_bucket": "nutriq-e6405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64800051448:android:f652da463745752e",
+        "android_client_info": {
+          "package_name": "islab.nutriq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64800051448-ar35c07vi3djd41mdric7cb3e4fpt9ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "islab.nutriq",
+            "certificate_hash": "a3667dbb86947b4e3b6dcea14f736e97eccca313"
+          }
+        },
+        {
+          "client_id": "64800051448-imt4m7lg8m7620s3u3umoovtu2050eoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ1eQg9jDYMomUapIDGi_m-r6Jvwier3M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64800051448-imt4m7lg8m7620s3u3umoovtu2050eoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
