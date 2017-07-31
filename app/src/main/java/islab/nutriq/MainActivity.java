@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -18,7 +17,6 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,11 +32,28 @@ public class MainActivity extends AppCompatActivity {
     private String mAnswer;
     private int mQuestionNumber;
 
+    ListView list_avatar;
+    String[] avatarNames = {"Chris", "Melanie", "Daniel"};
+    Integer[] imageID = {R.drawable.image1, R.drawable.image2, R.drawable.image3};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Adapter für die Liste der Avatare
+
+        CustomList avatarAdapter = new CustomList(MainActivity.this, avatarNames, imageID);
+
+        list_avatar = (ListView) findViewById(R.id.list_avatar);
+        list_avatar.setAdapter(avatarAdapter);
+        list_avatar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "You Clicked at " + avatarNames[+position], Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mList = (ListView) findViewById(R.id.list);
         mButtonA = (Button) findViewById(R.id.buttonA);
@@ -64,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                     .show();
 
             // Load chat room contents
-            displayChatMessages();
+            //displayChatMessages();
         }
     }
 
     public void updateQuestion() {
-        
+
     }
 
     @Override
@@ -98,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void displayChatMessages() {
+    /* private void displayChatMessages() {
 
-        ListView listOfMessages = (ListView) findViewById(R.id.list_of_messages);
+        ListView listOfMessages = (ListView) findViewById(R.id.list);
 
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference()) {
@@ -118,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         listOfMessages.setAdapter(adapter);
-    }
+    } */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -131,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         "Successfully signed in. Welcome!",
                         Toast.LENGTH_LONG)
                         .show();
-                displayChatMessages();
+                //displayChatMessages();
             } else {
                 Toast.makeText(this,
                         "We couldn't sign you in. Please try again later.",
