@@ -20,17 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Questions mQuestions = new Questions();
     private static final int SIGN_IN_REQUEST_CODE = 1;
-    private FirebaseListAdapter<ChatMessage> adapter;
 
-    private ListView mList;
-    private Button mButtonA;
-    private Button mButtonB;
-    private Button mButtonC;
-
-    private String mAnswer;
-    private int mQuestionNumber;
 
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
@@ -43,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Adapter für die Liste der Avatare
-
         CustomList avatarAdapter = new CustomList(MainActivity.this, avatarNames, imageID);
 
         list_avatar = (ListView) findViewById(R.id.list_avatar);
@@ -51,17 +41,15 @@ public class MainActivity extends AppCompatActivity {
         list_avatar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(MainActivity.this, "You Clicked at " + avatarNames[+position], Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
-                startActivity(intent);
+                if (position == 0) {
+                    Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, avatarNames[+position] + " ist im Prototyp nicht verfügbar.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        mList = (ListView) findViewById(R.id.list);
-        mButtonA = (Button) findViewById(R.id.buttonA);
-        mButtonB = (Button) findViewById(R.id.buttonB);
-        mButtonC = (Button) findViewById(R.id.buttonC);
-
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
@@ -74,19 +62,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // User is already signed in. Therefore, a welcome Toast
             Toast.makeText(this,
-                    "Welcome " + FirebaseAuth.getInstance()
+                    "Willkommen " + FirebaseAuth.getInstance()
                             .getCurrentUser()
                             .getDisplayName(),
                     Toast.LENGTH_LONG)
                     .show();
-
-            // Load chat room contents
-            //displayChatMessages();
         }
-    }
-
-    public void updateQuestion() {
-
     }
 
     @Override
@@ -103,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(MainActivity.this,
-                                    "You have been signed out.",
+                                    "Sie wurden abgemeldet.",
                                     Toast.LENGTH_LONG)
                                     .show();
 
@@ -115,28 +96,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /* private void displayChatMessages() {
-
-        ListView listOfMessages = (ListView) findViewById(R.id.list);
-
-        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                // Get references to the views of message.xml
-                TextView messageText = (TextView) v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView) v.findViewById(R.id.message_user);
-
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-
-            }
-        };
-
-        listOfMessages.setAdapter(adapter);
-    } */
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
@@ -145,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SIGN_IN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this,
-                        "Successfully signed in. Welcome!",
+                        "Erfolgreich angemeldet. Herzlich Willkommen!",
                         Toast.LENGTH_LONG)
                         .show();
                 //displayChatMessages();
             } else {
                 Toast.makeText(this,
-                        "We couldn't sign you in. Please try again later.",
+                        "Es gab einen Fehler. Bitte versuchen Sie es später erneut.",
                         Toast.LENGTH_LONG)
                         .show();
 

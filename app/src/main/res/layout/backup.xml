@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="islab.nutriq.Main2Activity">
 
-    <com.github.bassaer.chatmessageview.views.MessageView
-        android:id="@+id/message_view"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="368dp"
         android:layout_height="415dp"
         android:layout_marginLeft="8dp"
@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonA"
