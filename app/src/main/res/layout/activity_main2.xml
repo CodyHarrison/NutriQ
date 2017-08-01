@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="islab.nutriq.MainActivity">
+    tools:context="islab.nutriq.Main2Activity">
 
     <ListView
         android:id="@+id/list"
@@ -54,4 +54,5 @@
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

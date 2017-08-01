@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         list_avatar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "You Clicked at " + avatarNames[+position], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "You Clicked at " + avatarNames[+position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                startActivity(intent);
             }
         });
 
