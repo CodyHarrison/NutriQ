@@ -23,24 +23,24 @@ public class Main2Activity extends AppCompatActivity {
         //User icon
         Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image1);
         //User name
-        String myName = "Chris";
+        String myName = "Harun";
 
         int yourId = 1;
         Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image2);
-        String yourName = "Harun";
+        String yourName = "Chris";
 
         final User me = new User(myId, myName, myIcon);
         final User you = new User(yourId, yourName, yourIcon);
 
 
         Message message1 = new Message.Builder()
-                .setUser(me) // Sender
-                .setRightMessage(true) // This message Will be shown right side.
+                .setUser(you) // Sender
+                .setRightMessage(false) // This message Will be shown right side.
                 .setMessageText("Hello!") //Message contents
                 .build();
         Message message2 = new Message.Builder()
-                .setUser(you) // Sender
-                .setRightMessage(false) // This message Will be shown left side.
+                .setUser(me) // Sender
+                .setRightMessage(true) // This message Will be shown left side.
                 .setMessageText("What's up?") //Message contents
                 .build();
 

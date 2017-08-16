@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SIGN_IN_REQUEST_CODE = 1;
 
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private DataSource dataSource;
 
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
@@ -32,6 +35,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Datenbank
+
+        GetterSetterQuestions test = new GetterSetterQuestions(1, "was geht ab");
+        Log.d(LOG_TAG, "Test " + test.toString());
+
+        dataSource = new DataSource(this);
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
+
 
         //Adapter für die Liste der Avatare
         CustomList avatarAdapter = new CustomList(MainActivity.this, avatarNames, imageID);
