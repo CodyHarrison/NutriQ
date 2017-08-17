@@ -13,23 +13,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //Name der Datenbank
     public static final String DB_NAME = "nutriq.db";
     //Version der Datenbank
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     //Name der 1. Tabelle Frage
-    public static final String FRAGE = "Frage";
+    public static final String TABLE_FRAGE = "Frage";
     //Namen der Attribute aus der Tabelle Frage
     public static final String COLUMN_FRAGE_ID = "FrageId";
     public static final String COLUMN_FRAGE_TEXT = "FrageText";
 
     //CREATE Statement zur Erstellung der Tabelle Frage
     public static final String CREATE_FRAGE =
-            "CREATE TABLE " + FRAGE +
+            "CREATE TABLE " + TABLE_FRAGE +
                     "(" + COLUMN_FRAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_FRAGE_TEXT + " TEXT NOT NULL, ";
+                    COLUMN_FRAGE_TEXT + " TEXT NOT NULL);";
     //________________________________________________________________________________
 
     //Name der 2. Tabelle NuAntwort
-    public static final String NUANTWORT = "NuAntwort";
+    /*public static final String NUANTWORT = "NuAntwort";
     //Namen der Attribute aus der Tabelle NuAntwort
     public static final String COLUMN_NUAN_ID = "NuAnId";
     public static final String COLUMN_NUAN_TEXT = "NuAnText";
@@ -41,7 +41,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     "(" + COLUMN_NUAN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NUAN_TEXT + " TEXT NOT NULL, " +
                     COLUMN_FK_FRAGE_ID + " INTEGER," +
-                    " FOREIGN KEY (" + COLUMN_FK_FRAGE_ID + ") REFERENCES " + FRAGE + "(" + COLUMN_FRAGE_ID + "));";
+                    " FOREIGN KEY (" + COLUMN_FK_FRAGE_ID + ") REFERENCES " + TABLE_FRAGE + "(" + COLUMN_FRAGE_ID + "));";
     //________________________________________________________________________________
 
     //Name der 3. Tabelle SysAntwort
@@ -57,6 +57,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     "(" + COLUMN_SYSAN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT. " +
                     COLUMN_SYSAN_TEXT + " TEXT NOT NULL, " +
                     " FOREIGN KEY (" + COLUMN_FK_NUAN_ID + ") REFERENCES " + NUANTWORT + "(" + COLUMN_NUAN_ID + "));";
+                    */
 
 
     public MyDatabaseHelper(Context context) {
@@ -69,10 +70,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         try {
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_FRAGE + " angelegt.");
             db.execSQL(CREATE_FRAGE);
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_NUANTWORT + " angelegt");
-            db.execSQL(CREATE_NUANTWORT);
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_SYSANTWORT + " angelegt");
-            db.execSQL(CREATE_SYSANTWORT);
+            //Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_NUANTWORT + " angelegt");
+            //db.execSQL(CREATE_NUANTWORT);
+            //Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_SYSANTWORT + " angelegt");
+            //db.execSQL(CREATE_SYSANTWORT);
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
         }
@@ -81,8 +82,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_FRAGE);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_NUANTWORT);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_SYSANTWORT);
+        //db.execSQL("DROP TABLE IF EXISTS " + CREATE_NUANTWORT);
+        //db.execSQL("DROP TABLE IF EXISTS " + CREATE_SYSANTWORT);
         onCreate(db);
     }
 }

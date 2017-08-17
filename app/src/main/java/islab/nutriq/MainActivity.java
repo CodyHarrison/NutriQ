@@ -9,12 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DataSource dataSource;
+
+    public Questions questions;
 
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
@@ -37,14 +37,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Datenbank
-
-        GetterSetterQuestions test = new GetterSetterQuestions(1, "was geht ab");
-        Log.d(LOG_TAG, "Test " + test.toString());
-
         dataSource = new DataSource(this);
 
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
+
+        insertQuestions();
 
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
@@ -61,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(MainActivity.this, avatarNames[+position] + " ist im Prototyp nicht verfügbar.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -85,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    private void insertQuestions() {
+        questions = dataSource.createQuestions("Wie viel Kalorien hat Iso Sport?");
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + questions.getId() + ", Inhalt: " + questions.toString());
     }
 
     @Override

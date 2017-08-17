@@ -1,7 +1,7 @@
 package islab.nutriq;
 
 
-public class GetterSetterQuestions {
+public class Questions {
 
     private long id;
     private String frage;
@@ -22,7 +22,7 @@ public class GetterSetterQuestions {
         this.frage = frage;
     }
 
-    public GetterSetterQuestions(long id, String frage) {
+    public Questions(long id, String frage) {
         this.id = id;
         this.frage = frage;
     }
