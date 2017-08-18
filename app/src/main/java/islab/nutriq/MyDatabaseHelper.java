@@ -29,7 +29,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //________________________________________________________________________________
 
     //Name der 2. Tabelle NuAntwort
-    /*public static final String NUANTWORT = "NuAntwort";
+    public static final String TABLE_NUANTWORT = "NuAntwort";
     //Namen der Attribute aus der Tabelle NuAntwort
     public static final String COLUMN_NUAN_ID = "NuAnId";
     public static final String COLUMN_NUAN_TEXT = "NuAnText";
@@ -37,15 +37,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //CREATE Statement zur Erstellung der Tabelle NuAntwort
     public static final String CREATE_NUANTWORT =
-            "CREATE TABLE" + NUANTWORT +
-                    "(" + COLUMN_NUAN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE " + TABLE_NUANTWORT +
+                    "(" + COLUMN_NUAN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NUAN_TEXT + " TEXT NOT NULL, " +
                     COLUMN_FK_FRAGE_ID + " INTEGER," +
                     " FOREIGN KEY (" + COLUMN_FK_FRAGE_ID + ") REFERENCES " + TABLE_FRAGE + "(" + COLUMN_FRAGE_ID + "));";
     //________________________________________________________________________________
 
     //Name der 3. Tabelle SysAntwort
-    public static final String SYSANTWORT = "SysAntwort";
+    public static final String TABLE_SYSANTWORT = "SysAntwort";
     //Namen der Attribute aus der Tabelle SysAntwort
     public static final String COLUMN_SYSAN_ID = "SysAnId";
     public static final String COLUMN_SYSAN_TEXT = "SysAnText";
@@ -53,11 +53,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //CREATE Statement zur Erstellung der Tabelle SysAntwort
     public static final String CREATE_SYSANTWORT =
-            "CREATE TABLE" + SYSANTWORT +
-                    "(" + COLUMN_SYSAN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT. " +
+            "CREATE TABLE " + TABLE_SYSANTWORT +
+                    "(" + COLUMN_SYSAN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_SYSAN_TEXT + " TEXT NOT NULL, " +
-                    " FOREIGN KEY (" + COLUMN_FK_NUAN_ID + ") REFERENCES " + NUANTWORT + "(" + COLUMN_NUAN_ID + "));";
-                    */
+                    COLUMN_FK_NUAN_ID + " INTEGER," +
+                    " FOREIGN KEY (" + COLUMN_FK_NUAN_ID + ") REFERENCES " + TABLE_NUANTWORT + "(" + COLUMN_NUAN_ID + "));";
+
 
 
     public MyDatabaseHelper(Context context) {
@@ -70,10 +71,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         try {
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_FRAGE + " angelegt.");
             db.execSQL(CREATE_FRAGE);
-            //Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_NUANTWORT + " angelegt");
-            //db.execSQL(CREATE_NUANTWORT);
-            //Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_SYSANTWORT + " angelegt");
-            //db.execSQL(CREATE_SYSANTWORT);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_NUANTWORT + " angelegt");
+            db.execSQL(CREATE_NUANTWORT);
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_SYSANTWORT + " angelegt");
+            db.execSQL(CREATE_SYSANTWORT);
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
         }
@@ -82,8 +83,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_FRAGE);
-        //db.execSQL("DROP TABLE IF EXISTS " + CREATE_NUANTWORT);
-        //db.execSQL("DROP TABLE IF EXISTS " + CREATE_SYSANTWORT);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_NUANTWORT);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_SYSANTWORT);
         onCreate(db);
     }
 }

@@ -28,7 +28,7 @@ public class Chatbot {
             return "It's " + TimeUtils.calendarToString(Calendar.getInstance(), "M/d(E)");
 
         } else {
-            String reply = mainActivity.questions.toString();
+            String reply = "nope";
             if (receive.length() > 7) {
                 reply += ", consectetur adipiscing elit, " +
                         "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
