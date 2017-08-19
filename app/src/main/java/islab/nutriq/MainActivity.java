@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private DataSource dataSource;
 
     public Questions questions;
+    public UserAnswers userAnswers;
+    public SystemAnswers systemAnswers;
 
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
@@ -35,18 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Datenbank
-        dataSource = new DataSource(this);
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
-        dataSource.open();
-
-        insertQuestions();
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
-        dataSource.close();
-
 
         //Adapter für die Liste der Avatare
         CustomList avatarAdapter = new CustomList(MainActivity.this, avatarNames, imageID);
@@ -82,12 +72,39 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG)
                     .show();
         }
+
+        //Datenbank
+        dataSource = new DataSource(this);
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        insertQuestions();
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
     }
 
     private void insertQuestions() {
-        questions = dataSource.createQuestions("Wie viel Kalorien hat Iso Sport?");
+        //TODO: Username soll in den Settings angegeben werden können und hier ersetzt werden.
+        questions = dataSource.createQuestions("Hallo User. Macht spätes essen dick?");
         Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
         Log.d(LOG_TAG, "ID: " + questions.getId() + ", Inhalt: " + questions.toString());
+    }
+
+    private void insertUserAnswers() {
+
+        userAnswers = dataSource.createUserAnswers("Ja", 1);
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
+
+        /*userAnswers = dataSource.createUserAnswers("Nein", 1);
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
+
+        userAnswers = dataSource.createUserAnswers("Es kommt auf die Mahlzeit an", 1);
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());*/
     }
 
     @Override

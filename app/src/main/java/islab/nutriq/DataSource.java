@@ -14,9 +14,21 @@ public class DataSource {
     private SQLiteDatabase database;
     private MyDatabaseHelper dbHelper;
 
-    private String[] columns = {
+    private String[] columnsFrage = {
             MyDatabaseHelper.COLUMN_FRAGE_ID,
             MyDatabaseHelper.COLUMN_FRAGE_TEXT,
+    };
+
+    private String[] columsNuAn = {
+            MyDatabaseHelper.COLUMN_NUAN_ID,
+            MyDatabaseHelper.COLUMN_NUAN_TEXT,
+            MyDatabaseHelper.COLUMN_FK_FRAGE_ID,
+    };
+
+    private String[] columnsSysAn = {
+            MyDatabaseHelper.COLUMN_SYSAN_ID,
+            MyDatabaseHelper.COLUMN_SYSAN_TEXT,
+            MyDatabaseHelper.COLUMN_FK_NUAN_ID,
     };
 
 
@@ -43,7 +55,7 @@ public class DataSource {
         long insertId = database.insert(MyDatabaseHelper.TABLE_FRAGE, null, values);
 
         Cursor cursor = database.query(MyDatabaseHelper.TABLE_FRAGE,
-                columns, MyDatabaseHelper.COLUMN_FRAGE_ID + "=" + insertId,
+                columnsFrage, MyDatabaseHelper.COLUMN_FRAGE_ID + "=" + insertId,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -53,16 +65,79 @@ public class DataSource {
         return questions;
     }
 
+    public UserAnswers createUserAnswers(String userAnswer, int fkFrageId) {
+        ContentValues values = new ContentValues();
+        values.put(MyDatabaseHelper.COLUMN_NUAN_TEXT, userAnswer);
+        values.put(MyDatabaseHelper.COLUMN_FK_FRAGE_ID, fkFrageId);
+
+        long insertId = database.insert(MyDatabaseHelper.TABLE_NUANTWORT, null, values);
+
+        Cursor cursor = database.query(MyDatabaseHelper.TABLE_NUANTWORT,
+                columsNuAn, MyDatabaseHelper.COLUMN_NUAN_ID + "=" + insertId,
+                null, null, null, null);
+        cursor.moveToFirst();
+        UserAnswers userAnswers = cursorToUserAnswers(cursor);
+        cursor.close();
+
+        return userAnswers;
+    }
+
+    public SystemAnswers systemAnswers(String systemAnswer, int fkUserAnswerId) {
+        ContentValues values = new ContentValues();
+        values.put(MyDatabaseHelper.COLUMN_SYSAN_TEXT, systemAnswer);
+        values.put(MyDatabaseHelper.COLUMN_FK_NUAN_ID, fkUserAnswerId);
+
+        long insertId = database.insert(MyDatabaseHelper.TABLE_SYSANTWORT, null, values);
+
+        Cursor cursor = database.query(MyDatabaseHelper.TABLE_SYSANTWORT,
+                columnsSysAn, MyDatabaseHelper.COLUMN_SYSAN_ID + "=" + insertId,
+                null, null, null, null);
+        cursor.moveToFirst();
+        SystemAnswers systemAnswers = cursorToSystemAnswers(cursor);
+        cursor.close();
+
+        return systemAnswers;
+    }
+
+
     private Questions cursorToQuestions(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_FRAGE_ID);
         int idFrage = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_FRAGE_TEXT);
 
-        String frage = cursor.getString(idFrage);
         long id = cursor.getLong(idIndex);
+        String frage = cursor.getString(idFrage);
 
         Questions questions = new Questions(id, frage);
 
         return questions;
+    }
+
+    private UserAnswers cursorToUserAnswers(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_NUAN_ID);
+        int idNuAn = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_NUAN_TEXT);
+        int idFkFrageId = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_FK_NUAN_ID);
+
+        long id = cursor.getLong(idIndex);
+        String nuAn = cursor.getString(idNuAn);
+        long fkFrageId = cursor.getLong(idFkFrageId);
+
+        UserAnswers userAnswers = new UserAnswers(id, nuAn, fkFrageId);
+
+        return userAnswers;
+    }
+
+    private SystemAnswers cursorToSystemAnswers(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_SYSAN_ID);
+        int idSysAn = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_SYSAN_TEXT);
+        int idFkNuAnId = cursor.getColumnIndex(MyDatabaseHelper.COLUMN_FK_NUAN_ID);
+
+        long id = cursor.getLong(idIndex);
+        String sysAn = cursor.getString(idSysAn);
+        long fkNuAnId = cursor.getLong(idFkNuAnId);
+
+        SystemAnswers systemAnswers = new SystemAnswers(id, sysAn, fkNuAnId);
+
+        return systemAnswers;
     }
 
 

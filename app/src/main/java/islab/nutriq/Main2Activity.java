@@ -32,7 +32,7 @@ public class Main2Activity extends AppCompatActivity {
         //User id
         int myId = 0;
         //User icon
-        Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image1);
+        Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image3);
         //User name
         String myName = "Michael";
 
