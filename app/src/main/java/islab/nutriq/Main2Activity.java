@@ -34,7 +34,7 @@ public class Main2Activity extends AppCompatActivity {
         //User icon
         Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image3);
         //User name
-        String myName = "Michael";
+        String myName = "User";
 
         int yourId = 1;
         Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image2);

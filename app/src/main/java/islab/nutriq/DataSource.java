@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import static islab.nutriq.MyDatabaseHelper.TABLE_FRAGE;
+
 public class DataSource {
 
     private static final String LOG_TAG = DataSource.class.getSimpleName();
@@ -48,7 +50,108 @@ public class DataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public Questions createQuestions(String frageText) {
+    public Questions getQuestion(int id) {
+
+        // 1. get reference to readable DB
+        database = dbHelper.getReadableDatabase();
+
+        // 2. build query
+        Cursor cursor =
+                database.query(TABLE_FRAGE, // a. table
+                        columnsFrage, // b. column names
+                        " id = ?", // c. selections
+                        new String[] { String.valueOf(id) }, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // 3. if we got results get the first one
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // 4. build question object
+        Questions question = new Questions();
+        question.setId(Integer.parseInt(cursor.getString(0)));
+        question.setFrage(cursor.getString(1));
+
+        //log
+        Log.d("getQuestion("+id+")", question.toString());
+
+        // 5. return question
+        return question;
+    }
+
+    public UserAnswers getUserAnswer(int id) {
+        // 1. get reference to readable DB
+        database = dbHelper.getReadableDatabase();
+
+        // 2. build query
+        Cursor cursor =
+                database.query(MyDatabaseHelper.TABLE_NUANTWORT, // a. table
+                        columsNuAn, // b. column names
+                        " id = ?", // c. selections
+                        new String[] { String.valueOf(id) }, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // 3. if we got results get the first one
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // 4. build question object
+        UserAnswers userAnswer = new UserAnswers();
+        userAnswer.setId(Integer.parseInt(cursor.getString(0)));
+        userAnswer.setUserAnswer(cursor.getString(1));
+        userAnswer.setQuestionsId(cursor.getLong(2));
+
+        //log
+        Log.d("getUserAnswer("+id+")", userAnswer.toString());
+
+        // 5. return userAnswer
+        return userAnswer;
+    }
+
+    public SystemAnswers getSystemAnswer(int id) {
+        // 1. get reference to readable DB
+        database = dbHelper.getReadableDatabase();
+
+        // 2. build query
+        Cursor cursor =
+                database.query(MyDatabaseHelper.TABLE_SYSANTWORT, // a. table
+                        columnsSysAn, // b. column names
+                        " id = ?", // c. selections
+                        new String[] { String.valueOf(id) }, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // 3. if we got results get the first one
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // 4. build question object
+        SystemAnswers systeAnswer = new SystemAnswers();
+        systeAnswer.setId(Integer.parseInt(cursor.getString(0)));
+        systeAnswer.setSystemAnswer(cursor.getString(1));
+        systeAnswer.setUserAnswerId(cursor.getLong(2));
+
+        UserAnswers userAnswer = new UserAnswers();
+        userAnswer.setId(Integer.parseInt(cursor.getString(0)));
+        userAnswer.setUserAnswer(cursor.getString(1));
+        userAnswer.setQuestionsId(cursor.getLong(2));
+
+        //log
+        Log.d("getSystemAnswer("+id+")", userAnswer.toString());
+
+        // 5. return systemAnswer
+        return systeAnswer;
+    }
+
+    /*public Questions createQuestions(String frageText) {
         ContentValues values = new ContentValues();
         values.put(MyDatabaseHelper.COLUMN_FRAGE_TEXT, frageText);
 
@@ -138,7 +241,7 @@ public class DataSource {
         SystemAnswers systemAnswers = new SystemAnswers(id, sysAn, fkNuAnId);
 
         return systemAnswers;
-    }
+    } */
 
 
 }

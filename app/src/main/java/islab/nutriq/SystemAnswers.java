@@ -15,6 +15,10 @@ public class SystemAnswers {
         this.userAnswerId = userAnswerId;
     }
 
+    public SystemAnswers() {
+
+    }
+
     public long getId() {
         return id;
     }

@@ -6,6 +6,10 @@ public class Questions {
     private long id;
     private String frage;
 
+    public Questions() {
+
+    }
+
     public long getId() {
         return id;
     }
@@ -23,6 +27,7 @@ public class Questions {
     }
 
     public Questions(long id, String frage) {
+        super();
         this.id = id;
         this.frage = frage;
     }

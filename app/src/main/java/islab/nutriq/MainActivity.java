@@ -79,13 +79,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
 
-        insertQuestions();
-
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
 
-    private void insertQuestions() {
+    /*private void insertQuestions() {
         //TODO: Username soll in den Settings angegeben werden können und hier ersetzt werden.
         questions = dataSource.createQuestions("Hallo User. Macht spätes essen dick?");
         Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
@@ -98,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
         Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
 
-        /*userAnswers = dataSource.createUserAnswers("Nein", 1);
+        userAnswers = dataSource.createUserAnswers("Nein", 1);
         Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
         Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
 
         userAnswers = dataSource.createUserAnswers("Es kommt auf die Mahlzeit an", 1);
         Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());*/
-    }
+        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

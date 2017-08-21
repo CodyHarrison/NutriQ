@@ -10,9 +10,14 @@ public class UserAnswers {
     private long questionsId;
 
     public UserAnswers(long id, String userAnswer, long questionsId) {
+        super();
         this.id = id;
         this.userAnswer = userAnswer;
         this.questionsId = questionsId;
+    }
+
+    public UserAnswers() {
+
     }
 
     public long getId() {

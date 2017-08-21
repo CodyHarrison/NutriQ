@@ -1,6 +1,8 @@
 package islab.nutriq;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -9,6 +11,32 @@ import android.util.Log;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = MyDatabaseHelper.class.getSimpleName();
+
+    //____________________________________________________________
+    //Fragen, die in die Datenbank eingefügt werden sollen
+    private static String frage1 = "Hallo User. Macht spätes essen dick?";
+
+    //_____________________________________________________________
+    //Nutzerantworten, die in die Datenbank eingefügt werden sollen
+    private static String nutzerAntwort01 = "Ja";
+    private static String nutzerAntwort02 = "Nein";
+    private static String nutzerAntwort03 = "Es kommt auf die Mahlzeit an";
+
+    //_____________________________________________________________
+    private static String systemAntwort01 = "Das ist korrekt. Die Uhrzeit der Nahrungsmittelaufnahme ist nicht entscheidend für die Gewichtszunahme. Es kommt auf die Gesamtzahl der Kalorien an, die am Tag aufgenommen werden.";
+    private static String systemAntwort02 = "Das stimmt so leider nicht. Die Uhrzeit der Nahrungsmittelaufnahme ist nicht entscheidend für die Gewichtszunahme. Es kommt auf die Gesamtzahl der Kalorien an, die am Tag aufgenommen werden.";
+    private static String systemAntwort03 = "Prinzipiell ist das korrekt. Wenn die Gesamtzahl der aufgenommenen Kalorien bis spät Abends noch nicht zu groß ist, kann man Abends ruhig essen ohne zuzunehmen.";
+
+    //Insert Statements
+    String IN_FRAGE1 = "INSERT INTO " + TABLE_FRAGE + " (" + COLUMN_FRAGE_TEXT + ") VALUES ('" + frage1 + "');";
+
+    String IN_NuAN1 = "INSERT INTO " + TABLE_NUANTWORT + " (" + COLUMN_NUAN_TEXT + ", " + COLUMN_FK_FRAGE_ID + ") VALUES ('" + nutzerAntwort01 + "','1');";
+    String IN_NuAN2 = "INSERT INTO " + TABLE_NUANTWORT + " (" + COLUMN_NUAN_TEXT + ", " + COLUMN_FK_FRAGE_ID + ") VALUES ('" + nutzerAntwort02 + "','1');";
+    String IN_NuAN3 = "INSERT INTO " + TABLE_NUANTWORT + " (" + COLUMN_NUAN_TEXT + ", " + COLUMN_FK_FRAGE_ID + ") VALUES ('" + nutzerAntwort03 + "','1');";
+
+    String IN_SysAN1 = "INSERT INTO " + TABLE_SYSANTWORT + " (" + COLUMN_SYSAN_TEXT + ", " +COLUMN_FK_NUAN_ID + ") VALUES ('" + systemAntwort01 + "','1');";
+    String IN_SysAN2 = "INSERT INTO " + TABLE_SYSANTWORT + " (" + COLUMN_SYSAN_TEXT + ", " +COLUMN_FK_NUAN_ID + ") VALUES ('" + systemAntwort02 + "','2');";
+    String IN_SysAN3 = "INSERT INTO " + TABLE_SYSANTWORT + " (" + COLUMN_SYSAN_TEXT + ", " +COLUMN_FK_NUAN_ID + ") VALUES ('" + systemAntwort03 + "','3');";
 
     //Name der Datenbank
     public static final String DB_NAME = "nutriq.db";
@@ -60,7 +88,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     " FOREIGN KEY (" + COLUMN_FK_NUAN_ID + ") REFERENCES " + TABLE_NUANTWORT + "(" + COLUMN_NUAN_ID + "));";
 
 
-
     public MyDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
@@ -75,6 +102,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_NUANTWORT);
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + CREATE_SYSANTWORT + " angelegt");
             db.execSQL(CREATE_SYSANTWORT);
+            db.execSQL(IN_FRAGE1);
+            db.execSQL(IN_NuAN1);
+            db.execSQL(IN_NuAN2);
+            db.execSQL(IN_NuAN3);
+            db.execSQL(IN_SysAN1);
+            db.execSQL(IN_SysAN2);
+            db.execSQL(IN_SysAN3);
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
         }
