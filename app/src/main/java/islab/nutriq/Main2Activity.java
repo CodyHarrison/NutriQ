@@ -34,11 +34,11 @@ public class Main2Activity extends AppCompatActivity {
         //User icon
         Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image3);
         //User name
-        String myName = "User";
+        String myName = Data.user;
 
         int yourId = 1;
-        Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image2);
-        String yourName = "Emily";
+        Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.image1);
+        String yourName = "Chris";
 
         final User me = new User(myId, myName, myIcon);
         final User you = new User(yourId, yourName, yourIcon);
@@ -64,7 +64,7 @@ public class Main2Activity extends AppCompatActivity {
                         .setUser(me)
                         .setRightMessage(true)
                         .setMessageText(mChatView.getInputText())
-                        .hideIcon(true)
+                        .hideIcon(true) //False setzen wenn man selbst ein Profilbild einstellen kann
                         .build();
                 //Set to chat view
                 mChatView.send(message);

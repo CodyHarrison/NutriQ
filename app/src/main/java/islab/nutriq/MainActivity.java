@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,11 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int SIGN_IN_REQUEST_CODE = 1;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private DataSource dataSource;
 
-    public Questions questions;
-    public UserAnswers userAnswers;
-    public SystemAnswers systemAnswers;
 
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
@@ -72,38 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG)
                     .show();
         }
-
-        //Datenbank
-        dataSource = new DataSource(this);
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
-        dataSource.open();
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
-        dataSource.close();
     }
-
-    /*private void insertQuestions() {
-        //TODO: Username soll in den Settings angegeben werden können und hier ersetzt werden.
-        questions = dataSource.createQuestions("Hallo User. Macht spätes essen dick?");
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + questions.getId() + ", Inhalt: " + questions.toString());
-    }
-
-    private void insertUserAnswers() {
-
-        userAnswers = dataSource.createUserAnswers("Ja", 1);
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
-
-        userAnswers = dataSource.createUserAnswers("Nein", 1);
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
-
-        userAnswers = dataSource.createUserAnswers("Es kommt auf die Mahlzeit an", 1);
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + userAnswers.getId() + ", Inhalt: " + userAnswers.toString());
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,20 +77,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_sign_out) {
-            AuthUI.getInstance().signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(MainActivity.this,
-                                    "Sie wurden abgemeldet.",
-                                    Toast.LENGTH_LONG)
-                                    .show();
+        switch (item.getItemId()) {
+            case R.id.menu_sign_out:
+                AuthUI.getInstance().signOut(this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(MainActivity.this,
+                                        "Sie wurden abgemeldet.",
+                                        Toast.LENGTH_LONG)
+                                        .show();
 
-                            // Close activity
-                            finish();
-                        }
-                    });
+                                // Close activity
+                                finish();
+                            }
+                        });
+                break;
+            case R.id.menu_settings:
+                Intent intent = new Intent(this, Main3Activity.class);
+                this.startActivity(intent);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
