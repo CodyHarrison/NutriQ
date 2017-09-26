@@ -7,7 +7,7 @@ public class Data {
 
     //Fragen
     public static String[] frage = {
-            "Hallo Macht spätes essen dick?",
+            "Hallo macht spätes essen dick?",
             "Hallo " + user + ". Wie oft sollte man sich für eine positive Wirkung auf das Herz-Kreislauf-System körperlich betätigen?",
             "Hallo "+ user +". Welche Krankheit wird im Volksmund auch als Zuckerkrankheit bezeichnet?",
             "Hallo "+ user +". Welches Kraut hilft gegen Einschlafprobleme?",

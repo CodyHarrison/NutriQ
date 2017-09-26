@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SIGN_IN_REQUEST_CODE = 1;
 
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-
     ListView list_avatar;
     String[] avatarNames = {"Chris", "Melanie", "Daniel"};
     Integer[] imageID = {R.drawable.image1, R.drawable.image2, R.drawable.image3};

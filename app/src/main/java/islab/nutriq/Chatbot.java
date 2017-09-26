@@ -13,7 +13,7 @@ public class Chatbot {
     private static int tmpX;
     public static String answer(String username, String message) {
         String receive = message.toLowerCase();
-        String toReturn = "Das habe ich nicht verstanden. Bitte einen Satz mit 'fragen' bilden." + (isGuess?"(Wait for answer)":"");
+        String toReturn = "Das habe ich nicht verstanden. Bitte einen Satz mit 'frag' bilden." + (isGuess?"(Wait for answer)":"");
         if(isGuess) {
             for(int i = 0; i < Data.answer[tmpX].length; i++){
                 if(receive.toString().length()>0 && Data.answer[tmpX][i].toLowerCase().contains(receive.toString().toLowerCase())){
@@ -32,10 +32,9 @@ public class Chatbot {
                 for(int i = 0; i < Data.answer[tmpX].length; i++){
                     toReturn += i+1 + ") " + Data.answer[tmpX][i] + "\n";
                 }
-                toReturn += "-------------------\nAntwort als Satz!";
+                toReturn += "-------------------\nAntwort als Satz angeben!";
             }
         }
-        else { }
 
 
 

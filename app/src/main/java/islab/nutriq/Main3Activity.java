@@ -12,7 +12,7 @@ public class Main3Activity extends AppCompatActivity {
     TextView txtUsername;
     EditText username;
     Button buttonOK;
-    public static String user;
+    public static String user = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
