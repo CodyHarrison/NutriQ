@@ -1,9 +1,7 @@
 package islab.nutriq;
 
 
-import com.github.bassaer.chatmessageview.utils.TimeUtils;
 
-import java.util.Calendar;
 import java.util.Random;
 
 
@@ -35,38 +33,6 @@ public class Chatbot {
                 toReturn += "-------------------\nAntwort als Satz angeben!";
             }
         }
-
-
-
-
-
-
-
-
-
-        // if (receive.contains("hallo")) {
-        //     String user = "";
-        //     if (username != null) {
-        //         user = " " + username;
-        //     }
-        //     return "Hallo" + user + "!";
-        // } else if (receive.contains("hey")) {
-        //     return "Hey " + username + "!";
-        // } else if (receive.startsWith("frag")) {
-        //     return Data.frage0;
-        // } else if (receive.contains("time")) {
-        //     return "Es ist " + TimeUtils.calendarToString(Calendar.getInstance(), null) + ".";
-        // } else if (receive.contains("today")) {
-        //     return "Es ist " + TimeUtils.calendarToString(Calendar.getInstance(), "M/d(E)");
-//
-        // } else {
-        //     String reply = "nope";
-        //     if (receive.length() > 7) {
-        //         reply += ", consectetur adipiscing elit, " +
-        //                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
-        //     }
-        //     return reply;
-        // }
         return toReturn;
     }
 }

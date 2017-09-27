@@ -51,7 +51,7 @@ public class Data {
                     "Leider falsch. Fettsucht bzw. Adipositas bezeichnet die übermäßige Vermehrung von Fettgewebe im Körper."
             },
             {
-                    "Das ist leider falsch. Die richtige Antwort lautet Melisse. Pfefferminz beruhigt den Mangen - trinken Sie einen Pfefferminztee, wenn Sie Magenbeschwerden haben.",
+                    "Das ist leider falsch. Die richtige Antwort lautet Melisse. Pfefferminz beruhigt den Magen - trinken Sie einen Pfefferminztee, wenn Sie Magenbeschwerden haben.",
                     "Das ist leider falsch. Die richtige Antwort lautet Melisse. Rosmarin wirkt anregend auf das Zentrale Nervensystem.",
                     "Melisse ist hilfreich beim Einschlafen - machen Sie sich bei Problemen abends einfach einen heißen Melissentee."
             },
